@@ -1,9 +1,3 @@
----
-Poeta: José Jorge Alves Letria 
-titulo: As quatro estações
-Ano: 2005
-Categoria: couves, alfaces
----
 Aprendi os cheiros
 Do alecrim e da hera
 E ao azul do céu

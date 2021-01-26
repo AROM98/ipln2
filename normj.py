@@ -1,9 +1,10 @@
 #!python3
 #!/usr/local/bin
+# encoding: utf-8
+
 import os
 import sys
 from getopt import getopt
-import numpy as np
 import pandas as pd
 
 os.system("date")
@@ -19,13 +20,14 @@ resultc = " -o result.json"
 
 if '-n' in ops:
     poema = ops['-n']
-    #tmp = command + ops['-n'] + resultc
-    #print(tmp)
-    #os.system(tmp)
-    print(ops['-n'])
-    print(poema)
+    tmp = command + ops['-n'] + resultc
+    print(tmp)
+    os.system(tmp)
+    #print(ops['-n'])
+    #print(poema)
     
     df = pd.read_json('result.json')
-    print(df)
+    #print(df.content)
+    print(df.content[0][0][0])
 else:
     print("fodeu!")
