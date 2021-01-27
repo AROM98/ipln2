@@ -13,11 +13,12 @@ for i in range(1,5):
     res=requests.get(link)
     try:
         res.raise_for_status()
-        nome=inp+str(i)+".html"
-        file = open(nome, "wb")
-
-        for chunk in res.iter_content(10000000):
-            file.write(chunk)
-            file.close()
     except Exception as e:
         print(e)
+        continue
+    nome=inp+str(i)+".html"
+    file = open(nome, "wb")
+
+    for chunk in res.iter_content(10000000):
+        file.write(chunk)
+    file.close()
