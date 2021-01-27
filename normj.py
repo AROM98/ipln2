@@ -11,6 +11,10 @@ os.system("date")
 
 #os.system("poetry -i misc2.txt -o result.json")
 
+# pegar no ficheiro do poema
+# retirar metadados e crirar .txt temporario só com poema
+# usar coisa2 neste ficheiro, retornar tmp_rimas
+# adicionar a tmp_rimas os metadados
 
 ops,args = getopt(sys.argv[1:],"n: ")
 ops = dict(ops)
