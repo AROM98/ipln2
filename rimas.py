@@ -7,6 +7,7 @@ import subprocess, sys
 from getopt import getopt
 import pandas as pd
 from re import *
+import pandas as pd
 
 os.system("date")
 
@@ -63,6 +64,8 @@ def fazer_coisas(t, pal):
             print(pal_tmp, "rima com ", palavra_tmp)
         
 
+
+
 def rima_palavra():
     #pipe = subprocess.Popen(["perl", "coisa2"], stdout=sys.stdin)
     #os.system("./coisa2")
@@ -74,25 +77,17 @@ def rima_palavra():
     print(coisa)
     ler_pal_rima(coisa)
 
-def rima_poema():
-    return
-####  limpar output   -  importante
 
-# comparar com palavras da "wordlist-rimas.txt"
 
-# fazer reguex para encontrar silaba tónica e silaba final
-
-# usar vogal da tónica e ultima silaba.
-
-# palavras que riamam têm estes 2 campos iguais
-
-# resolver casos com apenas 1 silaba
-
+def rima_poema(poema):
+    df = pd.read_json(poema)
+    print(df.content[0][0][0])
 
 
 
 if '-n' in ops:
     print('nome do ficheiro do poema = ', ops['-n'])
+    rima_poema(ops['-n'])
 elif '-p' in ops:
     rima_palavra()
 else:
