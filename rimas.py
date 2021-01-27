@@ -22,27 +22,39 @@ def ler_pal_rima(coisa):
             print('res len = ', len(res))
             fazer_coisas(res, coisa)
 
+def acha_vogal(pal):
+    tmp_vogal = search(r'[aeiouáãàâõôóòêéíú](?=\:)', pal)
+    if tmp_vogal != None:
+        return tmp_vogal.group(0)
+    else:
+        return ''
+
+def acha_silab(pal):
+    tmp_silaba = search(r'(?<=\|)\w+(:*\w*)?$', pal)
+    if tmp_silaba != None:
+        silaba = tmp_silaba.group(0)
+        ## casos do âo, etc
+        tmp_tonica = search(r'[a-záãàâõôóòêéíú]:[a-z]*', silaba)
+        if tmp_tonica != None:
+            silaba = tmp_tonica.group(0)
+    else:
+        silaba = ''
+    silaba = sub(r':', '', silaba)
+    return silaba
+
+
 def fazer_coisas(t, pal):
-    vogal_pal = search(r'[aeiouáãàâõôóòêéíú](?=\:)', pal).group(0)
+    vogal_pal = acha_vogal(pal)
     print('vogal_pal = ', vogal_pal)
-    silaba_pal = search(r'(?<=\|)\w+(:*\w*)?$', pal).group(0)
-    silaba_pal = sub(r':', '', silaba_pal)
+
+    silaba_pal = acha_silab(pal)
     print('silaba_pal = ', silaba_pal)
     for palavra in t:
         #print("palavra = ", palavra)
-        tmp = search(r'[aeiouáãàâõôóòêéíú](?=\:)', palavra)
-        if tmp != None:
-            vogal = tmp.group(0)
-        else:
-            vogal = ''
-            #print(palavra,'----->',vogal)
-        tmp = search(r'(?<=\|)\w+(:*\w*)?$', palavra)
-        if tmp != None:
-            silaba = tmp.group(0)
-            silaba = sub(r':', '', silaba)
-        else:
-            silaba = ''
-            #print(palavra,'----->',silaba)
+        vogal = acha_vogal(palavra)
+        
+        silaba = acha_silab(palavra)
+            
         ## verificar se rima ou não
         if(vogal_pal == vogal and silaba_pal == silaba):
             ## supostamente rima
