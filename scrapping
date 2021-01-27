@@ -7,11 +7,18 @@ url = "https://www.poesiasonline.com"
 print("Insira um tema de procura!")
 inp=input()
 #print(url+inp)
-link = url + "/" +inp
-res=requests.get(url)
-res.raise_for_status()
-file = open("poesiasonline.html", "wb")
+for i in range(1,5):
+    print("a ir á pagina",i)
+    link = url + "/"+inp+ "/page/"+ str(i)
+    res=requests.get(link)
+    try:
+        res.raise_for_status()
+    except Exception as e:
+        print(e)
 
-for chunk in res.iter_content(10000000):
-    file.write(chunk)
-file.close()
+    nome=inp+str(i)+".html"
+    file = open(nome, "wb")
+
+    for chunk in res.iter_content(10000000):
+        file.write(chunk)
+    file.close()
