@@ -10,7 +10,9 @@ inp=input()
 for i in range(1,5):
     print("a ir á pagina",i)
     link = url + "/"+inp+ "/page/"+ str(i)
-    res=requests.get(link)
+    res = requests.get(link,
+                 stream=True, headers={'User-agent': 'Mozilla/5.0'})
+    #res=requests.get(link, allow_redirects=True)
     try:
         res.raise_for_status()
     except Exception as e:

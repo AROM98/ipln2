@@ -1,0 +1,21 @@
+#! python3
+
+import bs4
+print("Insira nome do file:")
+inp=input()
+text = open(inp)
+
+soup = bs4.BeautifulSoup(text.read(), features="html.parser")
+
+main = soup.select("#main")
+
+title = soup.find_all("a", {"rel":"bookmark"})
+
+text = soup.find_all("div", {"class":"entry-content"})
+
+date = soup.find_all("time")
+
+#text = soup.find()
+print(title[0])
+print(text[0])
+print(date[0])
