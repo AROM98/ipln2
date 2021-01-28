@@ -62,17 +62,17 @@ def acha_ult_pal(verso):
 
 # verifica se rima
 def ver_rima(pal1, pal2):
-    print('vou verificar', pal1, "---->", pal2)
+    #print('vou verificar', pal1, "---->", pal2)
     vogal_pal1 = acha_vogal(pal1)
     silaba_pal1 = acha_silab(pal1)
     vogal_pal2 = acha_vogal(pal2)
     silaba_pal2 = acha_silab(pal2)
-    print([vogal_pal1, silaba_pal1],[vogal_pal2, silaba_pal2])
+    #print([vogal_pal1, silaba_pal1],[vogal_pal2, silaba_pal2])
     if vogal_pal1 == vogal_pal2 and silaba_pal1 == silaba_pal2:
-        print('RIMA')
+     #   print('RIMA')
         return True
     else:
-        print('NAO RIMA')
+      #  print('NAO RIMA')
         return False
 
 
@@ -96,6 +96,7 @@ def fazer_coisas(t, pal):
             palavra_tmp = sub(r'[|:]*', '', palavra)
             print(pal_tmp, "rima com ", palavra_tmp)
         
+# inicio do algoritmo para rima de uma palavra
 def rima_palavra(): 
     print("digite uma palavra:")
     output = subprocess.check_output("./coisa2", shell=True)
@@ -104,6 +105,16 @@ def rima_palavra():
     print(coisa)
     ler_pal_rima(coisa)
 
+# para facilitar impirimir um poema
+def imprime_poema(poema, tipo_rima):
+    i = 0
+    for estrofe in poema:
+        for verso in estrofe:
+            tmp = sub(r'[|:\n]*', '', verso)
+            print(tmp, ' ---- ', tipo_rima[i])
+            i += 1
+        print('\n')
+
 
 # exp para retirar : . | -- >        :|\.|\|
 def rima_poema(poema):
@@ -111,9 +122,9 @@ def rima_poema(poema):
     ults = []
     linhas = 0
     df = pd.read_json(poema)
-    print('este poema tem ', len(df.content[0]), 'estrofes')
-    print('a estrofe[0], tem ',len(df.content[0][0]), 'versos')
-    print(df.content[0][0][0])
+    print('este poema tem ', len(df.content[0]), 'estrofes\n')
+    #print('a estrofe[0], tem ',len(df.content[0][0]), 'versos')
+    #print(df.content[0][0][0])
     #print(df.data[0]) # este não percebo muito bem como percorrer
 
     # para cada estrofe do poema
@@ -127,7 +138,7 @@ def rima_poema(poema):
 
             # linhas ocupadas com 'ultimas palavras'
             tam_ults = len(ults) #+ linhas
-            print('tam_ults =', tam_ults)
+            #print('tam_ults =', tam_ults)
 
             # se já houver alguma palavra, então compara
             if abs(linhas - tam_ults) != 0:
@@ -139,7 +150,7 @@ def rima_poema(poema):
                         tp_rima = tipo_rima[j]
                         tipo_rima.append(tp_rima)
                         ults.append(ultima_pal)
-                        print(ultima_pal, 'rima com', ults[j])
+                        #print(ultima_pal, 'rima com', ults[j])
                         rima = True
 
                 if rima == False:
@@ -157,8 +168,10 @@ def rima_poema(poema):
                 tipo_rima.append('A')
 
         linhas += len(estrofe)
-        print('linhas =', linhas)
+        #print('linhas =', linhas)
     
+    # imprime poema
+    imprime_poema(df.content[0], tipo_rima)
     # no final
     print(tipo_rima)
             
@@ -170,12 +183,9 @@ def rima_poema(poema):
 
 
 
-
-
-
-
+# opçoes do "menu"
 if '-n' in ops:
-    print('nome do ficheiro do poema = ', ops['-n'])
+    print('nome do ficheiro do poema =', ops['-n'])
     rima_poema(ops['-n'])
 elif '-p' in ops:
     rima_palavra()
