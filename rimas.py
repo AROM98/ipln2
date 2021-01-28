@@ -14,6 +14,7 @@ os.system("date")
 ops,args = getopt(sys.argv[1:],"pn: ")
 ops = dict(ops)
 
+# R: Em primeiro lugar vai-se abrir o ficheiro; A partir da abertura do ficheiro vai-se proceder à leitura deste mesmo e dividir em linhas?; Posteriormente com o resultado obtido anteriormente vai-se utilizar a definição fazer_coisas que irá ser referido posteriormente
 def ler_pal_rima(coisa):
     for ficheiro in args:
         with open(ficheiro) as f :
@@ -23,6 +24,7 @@ def ler_pal_rima(coisa):
             print('res len = ', len(res))
             fazer_coisas(res, coisa)
 
+# R: A partir de uma palavra vai-se procurar as vogais
 def acha_vogal(pal):
     tmp_vogal = search(r'[aeiouáãàâõôóòêéíú](?=\:)', pal)
     if tmp_vogal != None:
@@ -30,6 +32,7 @@ def acha_vogal(pal):
     else:
         return ''
 
+# R: Definição que procura sílabas numa determinada palavra. Nesta mesma definição procura, também as sílabas tónicas
 def acha_silab(pal):
     tmp_silaba = search(r'(?<=\|)\w+(:*\w*)?\ ?$', pal)
     if tmp_silaba != None:
