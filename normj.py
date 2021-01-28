@@ -33,5 +33,6 @@ if '-n' in ops:
     df = pd.read_json('result.json')
     #print(df.content)
     print(df.content[0][0][0])
+    print(df.data)
 else:
     print("fodeu!")
