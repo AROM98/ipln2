@@ -7,7 +7,7 @@ import subprocess, sys
 from getopt import getopt
 import pandas as pd
 from re import *
-import pandas as pd
+
 
 os.system("date")
 
@@ -32,7 +32,7 @@ def acha_vogal(pal):
     else:
         return ''
 
-# R: Definição que procura sílabas numa determinada palavra. Nesta mesma definição procura, também as sílabas tónicas
+# R: Definição que procura a ultima sílaba de uma palavra.
 def acha_silab(pal):
     tmp_silaba = search(r'(?<=\|)\w+(:*\w*)?\ ?$', pal)
     if tmp_silaba != None:
@@ -180,12 +180,6 @@ def rima_poema(poema):
             
 
 
-
-
-
-
-
-
 # opçoes do "menu"
 if '-n' in ops:
     print('nome do ficheiro do poema =', ops['-n'])
@@ -193,5 +187,9 @@ if '-n' in ops:
 elif '-p' in ops:
     rima_palavra()
 else:
-    print('no no no, plz indicar -p para palavra ou -n para poema!')
+    print('''flag -p para palavras, para ser usado da seguinte forma:
+./rimas.py -p dicinario.txt
+
+flag -n para poema, para ser usado da seguinte forma:
+./rimas.py -n poema.json''')
 
