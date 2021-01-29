@@ -1,15 +1,17 @@
 #! python3
-
-import bs4, requests, webbrowser
+import pathlib, requests, bs4, webbrowser, os, copy
+from analizador import parserStart
 
 url = "https://www.poesiasonline.com"
 
-print("Insira um tema de procura!")
-inp=input()
-#print(url+inp)
-for i in range(1,5):
-    print("a ir á pagina",i)
-    link = url + "/"+inp+ "/page/"+ str(i)
+
+def getPage(theme, page):
+    if theme == " ":
+        link = url
+    else:
+        print("a ir á pagina",page)
+        link = url + "/"+theme+ "/page/"+ page
+    print("Abrir link")
     res = requests.get(link,
                  stream=True, headers={'User-agent': 'Mozilla/5.0'})
     #res=requests.get(link, allow_redirects=True)
@@ -17,10 +19,92 @@ for i in range(1,5):
         res.raise_for_status()
     except Exception as e:
         print(e)
-        continue
-    nome=inp+str(i)+".html"
-    file = open(nome, "wb")
+        #continue
+    return res.text
 
-    for chunk in res.iter_content(10000000):
-        file.write(chunk)
-    file.close()
+
+
+def getData(res):
+    soup = bs4.BeautifulSoup(res, features="html.parser")
+    #main = soup.select("#main")
+    titulos = soup.find_all("h2", {"class":"entry-title"})
+    poemas = soup.find_all("div", {"class":"entry-content"})
+    datas = soup.find_all("time")
+    temas = soup.find_all("a", {"rel":"category tag"})
+
+    for i in range(len(datas)):
+        titulo = titulos[i].getText()
+        data = datas[i].getText()
+        tema = temas[i].getText()
+
+        with open('tempfile.txt', "w+") as tempfile:
+            tempfile.write(str(poemas[i]))
+        tempfile.close()
+        tempf=open('tempfile.txt', "r+")
+        poema = copy.deepcopy(parserStart(tempf))
+        os.system("rm tempfile.txt")
+        autor = poema[0]
+        del poema[0] #remove autor do poema
+
+        print(titulo)
+        print(autor)
+        print(data)
+        print(tema)
+        print("---------")
+        if autor == '\n':
+            continue
+        else:
+            makeDir(tema)
+            makeTXT(autor, titulo, tema, data, poema)
+
+
+
+def makeDir(tema):
+    os.makedirs("/home/falape/Poemas/"+tema+"/", exist_ok=True)
+
+
+def makeTXT(autor,titulo,tema,data,poema):
+    with open("/home/falape/Poemas/"+tema+"/"+titulo+'.txt', "w+") as poemaTXT:
+        poemaTXT.write("---\n")
+        poemaTXT.write("Poeta: " + autor+"\n")
+        poemaTXT.write("Titulo: " + titulo+ "\n")
+        poemaTXT.write("Ano: " + data+"\n")
+        poemaTXT.write("Categoria: " + tema+"\n")
+        poemaTXT.write("---")
+        for i in range(len(poema)):
+            if poema[i]=='\n':
+                poemaTXT.write(poema[i])
+            else:
+                poemaTXT.write(poema[i]+"\n")
+    poemaTXT.close()
+
+
+
+while True:
+    #os.system("clear")
+    print("Insira 'exit' para sair!")
+    print('Insira um tema de procura! Ou ""')
+    tema=input()
+    if tema == 'exit':
+        os.system("clear")
+        print("Sair!")
+        break
+    if(tema=="" or tema==" "):
+        page=getPage(" "," ")
+        getData(page)
+    else:
+        print("Insira a pagina")
+        pagina=input()
+        page=getPage(tema,pagina)
+        getData(page)
+
+
+
+#for i in range(1,5):
+
+    #nome=inp+str(i)+".html"
+    #file = open(nome, "wb")
+
+    #for chunk in res.iter_content(10000000):
+        #file.write(chunk)
+    #file.close()
