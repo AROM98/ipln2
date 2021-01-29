@@ -32,7 +32,7 @@ def getData(res):
     datas = soup.find_all("time")
     temas = soup.find_all("a", {"rel":"category tag"})
 
-    for i in range(len(datas)):
+    for i in range(min(len(datas),len(titulos))):
         titulo = titulos[i].getText()
         data = datas[i].getText()
         tema = temas[i].getText()
@@ -46,12 +46,12 @@ def getData(res):
         autor = poema[0]
         del poema[0] #remove autor do poema
 
-        print(titulo)
-        print(autor)
-        print(data)
-        print(tema)
-        print("---------")
-        if autor == '\n':
+        #print(titulo)
+        #print(autor)
+        #print(data)
+        #print(tema)
+        #print("---------")
+        if autor == '\n' or autor == '"entry-content"':
             continue
         else:
             makeDir(tema)
@@ -81,7 +81,6 @@ def makeTXT(autor,titulo,tema,data,poema):
 
 
 while True:
-    #os.system("clear")
     print("Insira 'exit' para sair!")
     print('Insira um tema de procura! Ou ""')
     tema=input()
@@ -97,14 +96,3 @@ while True:
         pagina=input()
         page=getPage(tema,pagina)
         getData(page)
-
-
-
-#for i in range(1,5):
-
-    #nome=inp+str(i)+".html"
-    #file = open(nome, "wb")
-
-    #for chunk in res.iter_content(10000000):
-        #file.write(chunk)
-    #file.close()
