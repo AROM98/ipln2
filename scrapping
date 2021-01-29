@@ -9,9 +9,9 @@ def getPage(theme, page):
     if theme == " ":
         link = url
     else:
-        #print("a ir á pagina",page)
+        print("a ir á pagina",page)
         link = url + "/"+theme+ "/page/"+ page
-    #print("Abrir link")
+    print("Abrir link")
     res = requests.get(link,
                  stream=True, headers={'User-agent': 'Mozilla/5.0'})
     #res=requests.get(link, allow_redirects=True)
@@ -42,19 +42,16 @@ def getData(res):
         tempfile.close()
         tempf=open('tempfile.txt', "r+")
         poema = copy.deepcopy(parserStart(tempf))
-        os.system("clear")
-        print("a ir á pagina")
-        print("Abrir link")
         os.system("rm tempfile.txt")
         autor = poema[0]
         del poema[0] #remove autor do poema
 
-        #print(titulo)
-        #print(autor)
-        #print(data)
-        #print(tema)
-        #print("---------")
-        if autor == '\n' or autor == '"entry-content"':
+        print(titulo)
+        print(autor)
+        print(data)
+        print(tema)
+        print("---------")
+        if autor == '\n':
             continue
         else:
             makeDir(tema)
