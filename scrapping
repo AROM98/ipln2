@@ -1,5 +1,5 @@
 #! python3
-import pathlib, requests, bs4, webbrowser, os, copy
+import pathlib, requests, bs4, time, os, copy
 from analizador import parserStart
 
 url = "https://www.poesiasonline.com"
@@ -9,9 +9,9 @@ def getPage(theme, page):
     if theme == " ":
         link = url
     else:
-        print("a ir á pagina",page)
+        #print("a ir á pagina",page)
         link = url + "/"+theme+ "/page/"+ page
-    print("Abrir link")
+    #print("Abrir link")
     res = requests.get(link,
                  stream=True, headers={'User-agent': 'Mozilla/5.0'})
     #res=requests.get(link, allow_redirects=True)
@@ -42,6 +42,9 @@ def getData(res):
         tempfile.close()
         tempf=open('tempfile.txt', "r+")
         poema = copy.deepcopy(parserStart(tempf))
+        os.system("clear")
+        print("a ir á pagina")
+        print("Abrir link")
         os.system("rm tempfile.txt")
         autor = poema[0]
         del poema[0] #remove autor do poema
@@ -81,6 +84,7 @@ def makeTXT(autor,titulo,tema,data,poema):
 
 
 while True:
+
     print("Insira 'exit' para sair!")
     print('Insira um tema de procura! Ou ""')
     tema=input()

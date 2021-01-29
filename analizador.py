@@ -2,7 +2,7 @@ from re import *
 import sys, copy
 
 
-literals = '–</>=""\n'
+literals = '</>=""\n()'
 tokens = ("INICIO", "VERSO", "AUTOR", "PI", "PF", "B")
 
 def t_INICIO(t):
@@ -11,7 +11,7 @@ def t_INICIO(t):
     #s.append(t.value)
 
 def t_VERSO(t):
-    r'[— \[\]“”]*[\w “”\[\]:,–;?!\-.\*\+…"")(]+ [\w \[\]“”,.…!)(?:;–\*\-\+]*'
+    r'[— \[\]“”]*[\w “”\[\]:,–;?!\-.\*\+…""’\']+ [\w \[\]“”,.…!)(?:;–’\'\*\-\+]*'
     if t.value == 'div class' or t.value ==  r'entry-content' or t.value == r'div':
         None
     else:
@@ -19,7 +19,7 @@ def t_VERSO(t):
     return t
 
 def t_AUTOR(t):
-    r'[(–]*\w+[\w ]+[)]*'
+    r'[ (]+\w+[\w ]+[)]+'
     #print(f"valorAutor = {t.value}")
     s.insert(0,t.value)
     return t
@@ -40,8 +40,8 @@ def t_B(t):
     #print(f"valorB = {t.value}")
 
 def t_error(t):
-    #print("")
-    print(f"Caracter ilegal em {t.value[0]}, linha {t.lexer.lineno}")
+    print("")
+    #print(f"Caracter ilegal em {t.value[0]}, linha {t.lexer.lineno}")
 
 from ply.lex import lex
 lexer = lex()
@@ -71,6 +71,3 @@ def parserStart(text):
     res=copy.deepcopy(s)
     s.clear()
     return res
-
-#t = open(sys.argv[1]).read()
-#parserStart(t)
