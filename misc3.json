@@ -1,0 +1,44 @@
+[
+    {
+        "content": [
+            [
+                "A|pren|di: o:s che:i|ros",
+                "Do: a|le:|crim e: da: he:|ra",
+                "E: a:|o a|zu:l do: cé:u",
+                "Cha|me:i Pri|ma|ve:|ra."
+            ],
+            [
+                "En|con|tre:i u:m fru:|to",
+                "Na: co:n|cha da: mã:o",
+                "E: à: se:|de da: á:|gua",
+                "De:i u:m no:|me Ve|rã:o."
+            ],
+            [
+                "Des|co|bri: o: so:l ",
+                "co:m o:|lhos de: so:|no,",
+                "À: tris|te:|za da:s fo:|lhas ",
+                "de:i o: no:|me de: Ou|to:|no"
+            ],
+            [
+                "A|pren|di: o:s mo:|dos ",
+                "do: bi:|co ma:is te:r|no",
+                "U:m cã:o de: pe|lu:|che",
+                "Co:m o: fri:|o do: In|ve:r|no."
+            ],
+            [
+                "Jun|te:i a:s es|ta|çõ:es",
+                "Co:m pé:s de: ma|gi:|a",
+                "E: à: so:|ma da:s qua:|tro",
+                "Cha|me:i po|e|si:|a."
+            ]
+        ],
+        "data": {
+            "Poeta": "José Jorge Alves Letria",
+            "titulo": "As quatro estações",
+            "Ano": 2005,
+            "Categoria": "couves, alfaces",
+            "stanzas": 5,
+            "lines": 20
+        }
+    }
+]
